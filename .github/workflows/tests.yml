@@ -13,7 +13,13 @@ jobs:
       fail-fast: true
       matrix:
         include:
+          - php: 7.2
+            framework: "laravel/framework:^7.0"
+          - php: 7.3
+            framework: "laravel/framework:^8.0"
           - php: 7.4
+            framework: "laravel/framework:^8.0"
+          - php: 8.0
             framework: "laravel/framework:^8.0"
 
     name: PHP ${{ matrix.php }} (${{ matrix.framework }})
@@ -34,4 +40,4 @@ jobs:
             COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist -n -o
 
       - name: Execute tests
-        run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+        run: vendor/bin/phpunit
