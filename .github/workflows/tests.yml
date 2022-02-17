@@ -1,0 +1,61 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux_tests:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+
+    strategy:
+      fail-fast: true
+      matrix:
+        laravel: ["laravel/framework", "laravel/lumen-framework"]
+        include:
+          - php: 7.2
+            framework-version: 5.5.*
+          - php: 7.2
+            framework-version: 5.6.*
+          - php: 7.2
+            framework-version: 5.7.*
+          - php: 7.2
+            framework-version: 5.8.*
+          - php: 7.2
+            framework-version: 6.0.*
+          - php: 7.2
+            framework-version: 7.0.*
+          - php: 7.2
+            framework-version: 8.0.*
+          - php: 8.0
+            framework-version: 5.5.*
+          - php: 8.0
+            framework-version: 5.6.*
+          - php: 8.0
+            framework-version: 5.7.*
+          - php: 8.0
+            framework-version: 5.8.*
+          - php: 8.0
+            framework-version: 6.0.*
+          - php: 8.0
+            framework-version: 7.0.*
+          - php: 8.0
+            framework-version: 8.0.*
+
+    name: PHP ${{ matrix.php }}/Laravel ${{ matrix.framework-version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install swoole
+        run: pecl install swoole
+
+      - name: Install dependencies
+        run: |
+            composer require "${matrix.package}:${matrix.framework-version}" --no-update -n
+            composer install --no-suggest --prefer-dist -n -o
+
+      - name: Execute tests
+        run: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
