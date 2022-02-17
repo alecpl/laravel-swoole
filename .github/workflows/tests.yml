@@ -13,8 +13,6 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - php: "7.2"
-            framework: "laravel/framework:^7.0"
           - php: "7.3"
             framework: "laravel/framework:^8.0"
           - php: "7.4"
