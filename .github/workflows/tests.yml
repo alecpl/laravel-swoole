@@ -26,9 +26,9 @@ jobs:
 
       - name: Install openswoole
         run: |
-            apt install -y software-properties-common && add-apt-repository ppa:ondrej/php -y
-            apt install -y software-properties-common && add-apt-repository ppa:openswoole/ppa -y
-            apt install -y php${{ matrix.php }}-openswoole
+            sudo apt install -y software-properties-common && add-apt-repository ppa:ondrej/php -y
+            sudo apt install -y software-properties-common && add-apt-repository ppa:openswoole/ppa -y
+            sudo apt install -y php${{ matrix.php }}-openswoole
 
       - name: Install dependencies
         run: |
