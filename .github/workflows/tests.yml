@@ -21,14 +21,14 @@ jobs:
     name: PHP ${{ matrix.php }} (${{ matrix.framework }})
 
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: swoole
+
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Install openswoole
-        run: |
-            sudo apt install -y software-properties-common && sudo add-apt-repository ppa:ondrej/php -y
-            sudo apt install -y software-properties-common && sudo add-apt-repository ppa:openswoole/ppa -y
-            sudo apt install -y php${{ matrix.php }}-openswoole
 
       - name: Install dependencies
         run: |
