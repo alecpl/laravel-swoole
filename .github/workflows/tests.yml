@@ -14,9 +14,9 @@ jobs:
       matrix:
         include:
           - php: 7.4
-            framework: "laravel/framework:5.5.*"
+            framework: "laravel/framework:8.0.*"
           - php: 8.0
-            framework: "laravel/framework:5.5.*"
+            framework: "laravel/framework:8.0.*"
 
     name: PHP ${{ matrix.php }} (${{ matrix.framework }})
 
@@ -26,8 +26,8 @@ jobs:
 
       - name: Install openswoole
         run: |
-            sudo apt install -y software-properties-common && add-apt-repository ppa:ondrej/php -y
-            sudo apt install -y software-properties-common && add-apt-repository ppa:openswoole/ppa -y
+            sudo apt install -y software-properties-common && sudo add-apt-repository ppa:ondrej/php -y
+            sudo apt install -y software-properties-common && sudo add-apt-repository ppa:openswoole/ppa -y
             sudo apt install -y php${{ matrix.php }}-openswoole
 
       - name: Install dependencies
